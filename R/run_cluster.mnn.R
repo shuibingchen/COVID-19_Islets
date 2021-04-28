@@ -44,7 +44,7 @@ disso.genes <- as.vector(read.table(dissofile, header=F, check.names=F, sep="\t"
 
 # ----------------------------------------------------- filter cells ---------------------------------------------------- #
 # sample info
-sample.info <- data.frame(Name=c("Healthy_7_Mock","Healthy_7_SARS-CoV-2","Healthy_8_Mock","Healthy_8_SARS-CoV-2","Healthy_8_SARS-CoV-2_ISIRB"), 
+sample.info <- data.frame(Name=c("non-COVID_5_Mock","non-COVID_5_SARS-CoV-2","non-COVID_6_Mock","non-COVID_6_SARS-CoV-2","non-COVID_6_SARS-CoV-2_ISIRB"), 
                           Condition=c("Mock","Infected","Mock","Infected","Treated"), 
                           Donor=c("Donor7","Donor7","Donor8","Donor8","Donor8"))
 rownames(sample.info) <- c("D1S1","D1S2","D2S1","D2S2","D2S3")
@@ -341,19 +341,19 @@ ggsave(file.path(figdir, paste("UMAP","exp","PRSS2","Infected","png",sep='.')), 
 # Figure S6C
 # UMAP and violin plots showing the expression levels of SARS-CoV-2 genes of control or 10 μM trans-ISRIB treated human islets at 24 hpi
 # HPAP066_SARS-CoV-2_ISIRB.vs.HPAP066_SARS-CoV-2
-cells.Healthy_8.infected <- rownames(subset(FetchData(panc, vars=c('Name')), Name == 'Healthy_8_SARS-CoV-2'))
-cells.Healthy_8.treated <- rownames(subset(FetchData(panc, vars=c('Name')), Name == 'Healthy_8_SARS-CoV-2_ISIRB'))
+cells.non-COVID_6.infected <- rownames(subset(FetchData(panc, vars=c('Name')), Name == 'non-COVID_6_SARS-CoV-2'))
+cells.non-COVID_6.treated <- rownames(subset(FetchData(panc, vars=c('Name')), Name == 'non-COVID_6_SARS-CoV-2_ISIRB'))
 for (gene in cov2.genes){
   print(gene)
   # UMAP - infected
-  plot <- MyFeaturePlot(tobj=panc, tgenes=c(gene), tcells=cells.Healthy_8.infected, tassay="RNA", treduction.name="umap", tlowcolor=myExpLowColor, thighcolor=myExpHighColor, txlim=c(x.lower,x.upper), tylim=c(y.lower,y.upper), tncol=1, tlegend=NULL)
-  ggsave(file.path(figdir, paste("UMAP","exp",gene,"Healthy_8_SARS-CoV-2","png",sep='.')), plot=plot, width=10, height=8, dpi=300)
+  plot <- MyFeaturePlot(tobj=panc, tgenes=c(gene), tcells=cells.non-COVID_6.infected, tassay="RNA", treduction.name="umap", tlowcolor=myExpLowColor, thighcolor=myExpHighColor, txlim=c(x.lower,x.upper), tylim=c(y.lower,y.upper), tncol=1, tlegend=NULL)
+  ggsave(file.path(figdir, paste("UMAP","exp",gene,"non-COVID_6_SARS-CoV-2","png",sep='.')), plot=plot, width=10, height=8, dpi=300)
   # UMAP - treated
-  plot <- MyFeaturePlot(tobj=panc, tgenes=c(gene), tcells=cells.Healthy_8.treated, tassay="RNA", treduction.name="umap", tlowcolor=myExpLowColor, thighcolor=myExpHighColor, txlim=c(x.lower,x.upper), tylim=c(y.lower,y.upper), tncol=1, tlegend=NULL)
-  ggsave(file.path(figdir, paste("UMAP","exp",gene,"Healthy_8_SARS-CoV-2_ISIRB","png",sep='.')), plot=plot, width=10, height=8, dpi=300)
+  plot <- MyFeaturePlot(tobj=panc, tgenes=c(gene), tcells=cells.non-COVID_6.treated, tassay="RNA", treduction.name="umap", tlowcolor=myExpLowColor, thighcolor=myExpHighColor, txlim=c(x.lower,x.upper), tylim=c(y.lower,y.upper), tncol=1, tlegend=NULL)
+  ggsave(file.path(figdir, paste("UMAP","exp",gene,"non-COVID_6_SARS-CoV-2_ISIRB","png",sep='.')), plot=plot, width=10, height=8, dpi=300)
   # Violin plot
-  plot <- MyExpViolin(tobj=panc, tgene=gene, tgroup_by='ident', tgroup_order=0:8, tsplit_by='Name', tsplit_order=c('Healthy_8_SARS-CoV-2','Healthy_8_SARS-CoV-2_ISIRB'), tcolor_by='ident', tcolor_order=0:8, tcolor=my.cluster.color.1, tcells=c(cells.Healthy_8.infected,cells.Healthy_8.treated), tassay="RNA", tncol=1)
-  ggsave(file.path(figdir, paste("Violin","exp",gene,"Healthy_8_SARS-CoV-2_ISIRB.vs.Healthy_8_SARS-CoV-2","png",sep=".")), plot=plot, height=8, width=6, dpi=300)
+  plot <- MyExpViolin(tobj=panc, tgene=gene, tgroup_by='ident', tgroup_order=0:8, tsplit_by='Name', tsplit_order=c('non-COVID_6_SARS-CoV-2','non-COVID_6_SARS-CoV-2_ISIRB'), tcolor_by='ident', tcolor_order=0:8, tcolor=my.cluster.color.1, tcells=c(cells.non-COVID_6.infected,cells.non-COVID_6.treated), tassay="RNA", tncol=1)
+  ggsave(file.path(figdir, paste("Violin","exp",gene,"non-COVID_6_SARS-CoV-2_ISIRB.vs.non-COVID_6_SARS-CoV-2","png",sep=".")), plot=plot, height=8, width=6, dpi=300)
 }
 
 # Figure 3A
@@ -430,33 +430,33 @@ ggsave(file.path(figdir, 'Dot.exp.acinar_markers.2.SARS-CoV-2_infected.vs.Mock.b
 plot <- myDotPlot.2(tobj=panc, tgenes='ALDH1A3', tgroup_by='Condition', tgroup_order=c('Mock','Infected'), tassay="RNA", tcells=mock.infected.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
 ggsave(file.path(figdir, 'Dot.exp.ALDH1A3.SARS-CoV-2_infected.vs.Mock.beta_cells.png'), plot=plot, width=3, height=4, dpi=300)
 
-# collect beta cells from DMSO v.s. treated (Healthy_8 donor) only
-infected.treated.beta.cells <- rownames(subset(FetchData(panc, vars=c('ident', 'Name')), ident %in% c(2) & Name %in% c('Healthy_8_SARS-CoV-2','Healthy_8_SARS-CoV-2_ISIRB')))
+# collect beta cells from DMSO v.s. treated (non-COVID_6 donor) only
+infected.treated.beta.cells <- rownames(subset(FetchData(panc, vars=c('ident', 'Name')), ident %in% c(2) & Name %in% c('non-COVID_6_SARS-CoV-2','non-COVID_6_SARS-CoV-2_ISIRB')))
 
 # Figure 7A
 # Dot plot illustrating expression level of INS in beta cells of control or 10 μM trans-ISRIB treated human islets at 24 hpi (MOI=1). 
-plot <- myDotPlot.2(tobj=panc, tgenes=c('INS'), tgroup_by='Name', tgroup_order=c('Healthy_8_SARS-CoV-2','Healthy_8_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
-ggsave(file.path(figdir, 'Dot.exp.beta_markers.Healthy_8_SARS-CoV-2_ISIRB.vs.Healthy_8_SARS-CoV-2.beta_cells.png'), plot=plot, width=4, height=4, dpi=300)
+plot <- myDotPlot.2(tobj=panc, tgenes=c('INS'), tgroup_by='Name', tgroup_order=c('non-COVID_6_SARS-CoV-2','non-COVID_6_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
+ggsave(file.path(figdir, 'Dot.exp.beta_markers.non-COVID_6_SARS-CoV-2_ISIRB.vs.non-COVID_6_SARS-CoV-2.beta_cells.png'), plot=plot, width=4, height=4, dpi=300)
 
 # Figure 7B
 # Dot plot illustrating expression level of alpha cell markers, including GCG, KLHL41, RFX6, SMARCA1, TM4SF4, and RGS4, in beta cells of control or 10 μM trans-ISRIB treated human islets at 24 hpi (MOI=1). 
-plot <- myDotPlot.2(tobj=panc, tgenes=c('GCG','KLHL41','RFX6','SMARCA1','TM4SF4','RGS4'), tgroup_by='Name', tgroup_order=c('Healthy_8_SARS-CoV-2','Healthy_8_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
-ggsave(file.path(figdir, 'Dot.exp.alpha_markers.Healthy_8_SARS-CoV-2_ISIRB.vs.Healthy_8_SARS-CoV-2.beta_cells.png'), plot=plot, width=6, height=4, dpi=300)
+plot <- myDotPlot.2(tobj=panc, tgenes=c('GCG','KLHL41','RFX6','SMARCA1','TM4SF4','RGS4'), tgroup_by='Name', tgroup_order=c('non-COVID_6_SARS-CoV-2','non-COVID_6_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
+ggsave(file.path(figdir, 'Dot.exp.alpha_markers.non-COVID_6_SARS-CoV-2_ISIRB.vs.non-COVID_6_SARS-CoV-2.beta_cells.png'), plot=plot, width=6, height=4, dpi=300)
 
 # Figure 7C
 # Dot plot illustrating expression level of acinar cell markers, including PRSS1, PRSS2, CPA1, CPA2, CPB1, SPINK1, and OLFM4, in beta cells of control or 10 μM trans-ISRIB treated human islets at 24 hpi (MOI=1). 
-plot <- myDotPlot.2(tobj=panc, tgenes=c('PRSS1','PRSS2','CPA1','CPA2','CPB1','SPINK1','OLFM4'), tgroup_by='Name', tgroup_order=c('Healthy_8_SARS-CoV-2','Healthy_8_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
-ggsave(file.path(figdir, 'Dot.exp.acinar_markers.Healthy_8_SARS-CoV-2_ISIRB.vs.Healthy_8_SARS-CoV-2.beta_cells.png'), plot=plot, width=6.5, height=4, dpi=300)
+plot <- myDotPlot.2(tobj=panc, tgenes=c('PRSS1','PRSS2','CPA1','CPA2','CPB1','SPINK1','OLFM4'), tgroup_by='Name', tgroup_order=c('non-COVID_6_SARS-CoV-2','non-COVID_6_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
+ggsave(file.path(figdir, 'Dot.exp.acinar_markers.non-COVID_6_SARS-CoV-2_ISIRB.vs.non-COVID_6_SARS-CoV-2.beta_cells.png'), plot=plot, width=6.5, height=4, dpi=300)
 
 # Figure 7O
 # Dot plot illustrating expression levels of cell stress associated genes of control or 10 μM trans-ISRIB treated human islets at 24 hpi (MOI=1).
-plot <- myDotPlot.2(tobj=panc, tgenes=stress.genes, tgroup_by='Name', tgroup_order=c('Healthy_8_SARS-CoV-2','Healthy_8_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
-ggsave(file.path(figdir, 'Dot.exp.stress_genes.Healthy_8_SARS-CoV-2_ISIRB.vs.Healthy_8_SARS-CoV-2.beta_cells.png'), plot=plot, width=28, height=4, dpi=300)
+plot <- myDotPlot.2(tobj=panc, tgenes=stress.genes, tgroup_by='Name', tgroup_order=c('non-COVID_6_SARS-CoV-2','non-COVID_6_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
+ggsave(file.path(figdir, 'Dot.exp.stress_genes.non-COVID_6_SARS-CoV-2_ISIRB.vs.non-COVID_6_SARS-CoV-2.beta_cells.png'), plot=plot, width=28, height=4, dpi=300)
 
 # Figure S7I
 # Dot plot illustrating expression level of ALDH1A3 in control or 10 uM trans-ISRIB treated human islets at 24 hpi (MOI=1)
-plot <- myDotPlot.2(tobj=panc, tgenes='ALDH1A3', tgroup_by='Name', tgroup_order=c('Healthy_8_SARS-CoV-2','Healthy_8_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
-ggsave(file.path(figdir, 'Dot.exp.ALDH1A3.Healthy_8_SARS-CoV-2_ISIRB.vs.Healthy_8_SARS-CoV-2.beta_cells.png'), plot=plot, width=4.5, height=4, dpi=300)
+plot <- myDotPlot.2(tobj=panc, tgenes='ALDH1A3', tgroup_by='Name', tgroup_order=c('non-COVID_6_SARS-CoV-2','non-COVID_6_SARS-CoV-2_ISIRB'), tassay="RNA", tcells=infected.treated.beta.cells, tlowcolor="#2166ac", tmidcolor="#f7f7f7", thighcolor="#b2182b")
+ggsave(file.path(figdir, 'Dot.exp.ALDH1A3.non-COVID_6_SARS-CoV-2_ISIRB.vs.non-COVID_6_SARS-CoV-2.beta_cells.png'), plot=plot, width=4.5, height=4, dpi=300)
 # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ #
 
 sessionInfo()

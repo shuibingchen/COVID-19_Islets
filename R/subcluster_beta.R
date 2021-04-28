@@ -44,7 +44,7 @@ disso.genes <- as.vector(read.table(dissofile, header=F, check.names=F, sep="\t"
 
 # -------------------------------------------------- extract beta cells ------------------------------------------------- #
 # sample info
-sample.info <- data.frame(Name=c("Healthy_7_Mock","Healthy_7_SARS-CoV-2","Healthy_8_Mock","Healthy_8_SARS-CoV-2","Healthy_8_SARS-CoV-2_ISIRB"), 
+sample.info <- data.frame(Name=c("non-COVID_5_Mock","non-COVID_5_SARS-CoV-2","non-COVID_6_Mock","non-COVID_6_SARS-CoV-2","non-COVID_6_SARS-CoV-2_ISIRB"), 
                           Condition=c("Mock","Infected","Mock","Infected","Treated"), 
                           Donor=c("Donor7","Donor7","Donor8","Donor8","Donor8"))
 rownames(sample.info) <- c("D1S1","D1S2","D2S1","D2S2","D2S3")
